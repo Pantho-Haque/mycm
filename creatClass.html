@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- additionals -->
+    <script src="https://use.fontawesome.com/b4f1ce8a81.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- additionals -->
+    <link rel="stylesheet" href="styling/form.css">
+    <link rel="icon" href="resources/ClassMatelogo.png" type="image/icon type">
+    <title>ClassMate</title>
+
+
+</head>
+
+<body>
+
+    <main id="main">
+        <div id="brand">
+            <img id="brangimg" src="resources/ClassMatelogo.png" alt="logo">
+            <p id="brandname">ClassMate</p>
+        </div>
+
+
+        <div id="cbox">
+            <div class="row">
+                <p id="notsp" style="background:gray;text-align:center;color:white;"></p>
+                <h3 class="dec">Creating Class</h3>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="ins" type="text" class="validate">
+                            <label for="ins">Institute *</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="sins" type="text" class="validate">
+                            <label for="sins">Institute Short Name *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="dep" type="text" class="validate">
+                            <label for="dep">Department/Class *</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="year" type="text" class="validate">
+                            <label for="year">Batch *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="ts" type="number" class="validate">
+                            <label for="ts">Total Students *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="fr" type="text" class="validate">
+                            <label for="fr">First Roll *</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="lr" type="text" class="validate">
+                            <label for="lr">Last Roll *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="ncr" type="number" class="validate">
+                            <label for="ncr">Number of Class Representative(CR) *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="crr" type="text" class="validate">
+                            <label for="crr">Roll of CR[separate with comma(,)] *</label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+
+
+
+
+            <div class="allbtns">
+                <img src="resources/Spinner.gif" alt="Wait" width="60vw">
+                <a id="continuebtn" class="waves-effect waves-light btn-small bnt cclass">Continue</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+
+
+    <script>
+        $(".allbtns>img").hide();
+        /*
+                        
+                                    database connection
+                        
+                        
+                        */
+
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyC8mJtYNAzcYWV2chASQwQvKq9nnMc0hr4",
+            authDomain: "myclassmate-7f0ba.firebaseapp.com",
+            databaseURL: "https://myclassmate-7f0ba-default-rtdb.firebaseio.com",
+            projectId: "myclassmate-7f0ba",
+            storageBucket: "myclassmate-7f0ba.appspot.com",
+            messagingSenderId: "784800826035",
+            appId: "1:784800826035:web:49852f1e8f2e8133e326c6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.database();
+        /*
+        
+                    database connection
+        
+        
+        */
+
+
+
+
+        $("#continuebtn").click(function (e) {
+            e.preventDefault();
+
+            var ins = $("#ins")[0].value;
+            var sins = $("#sins")[0].value.toLowerCase();
+            var dep = $("#dep")[0].value.toLowerCase();
+            var year = $("#year")[0].value;
+            var ts = $("#ts")[0].value;
+            var fr = $("#fr")[0].value;
+            var lr = $("#lr")[0].value;
+            var ncr = $("#ncr")[0].value;
+
+            /*********************/
+
+            var crrArr = $("#crr")[0].value.split(",");
+            const unique = (value, index, self) => {
+                return self.indexOf(value) === index;
+            }
+            crrArr = crrArr.filter(unique);
+
+
+            /*********************/
+
+
+            var ccm = sins + '-' + dep + '-' + year;
+
+            try {
+                if (ins == "" || sins == "" || dep == "" || year == "" || ts == "" || fr == "" || lr == "" || ncr == "" || crrArr == "") {
+                    throw "Fillup The form";
+                }
+                else if ((lr - fr + 1) != ts) {
+                    throw "Invalid Student orientation";
+
+                }
+                else if (filterCRroll(crrArr, lr) != ncr) {
+                    throw "Invalid orientation for roll of CR";
+
+                }
+                else {
+                    db.ref().on("value", function (e) {
+                        var j = e.val()[ccm];
+
+                        try {
+                            if (j != null) {
+                                throw "Class Already Exist";
+                            }
+                            else {
+                                var crr = {};
+                                for (var i = 1; i <= ncr; i++) {
+                                    crr[i] = crrArr[i - 1];
+                                }
+
+                                for (var i = fr; i <= lr; i++) {
+                                    db.ref(ccm + "/" + i).set({
+
+                                        password: i.toString()
+                                    });
+                                }
+                                db.ref(ccm + "/cd").set({
+                                    ccm: ccm,
+                                    crr: crr,
+                                    dep: dep,
+                                    fr: fr,
+                                    ins: ins,
+                                    lr: lr,
+                                    ncr: ncr,
+                                    sins: sins,
+                                    ts: ts,
+                                    year: year
+                                });
+
+                                $(".allbtns>img").show();
+                                setTimeout(function () {
+                                    location.replace("registration");
+                                }, 4000);
+
+
+                            }
+                        } catch (err) {
+                            fillupFormValidation(4000, err);
+                        }
+
+                    });
+                }
+
+            } catch (err) {
+                fillupFormValidation(4000, err);
+            }
+            
+
+
+
+        });
+
+
+
+        function filterCRroll(crr, lr) {
+            var Ilr = parseInt(lr);
+            var tempArr = [];
+            var unique1 = [];
+            for (var i = 0; i <= crr.length; i++) {
+                var Icrr = parseInt(crr[i]);
+                if (Icrr <= lr) {
+                    tempArr[i] = Icrr;
+                }
+                else {
+                    continue;
+                }
+            }
+
+            return tempArr.length;
+        }
+
+
+
+
+        function fillupFormValidation(time, notice) {
+            $("#notsp").text(notice);
+            setTimeout(function () {
+                $("#notsp").text("");
+            }, time);
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

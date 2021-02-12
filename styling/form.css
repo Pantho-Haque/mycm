@@ -1,0 +1,118 @@
+body {
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 39%, rgba(0, 212, 255, 1) 100%);
+    width: 95vw;
+    margin: 0px;
+
+}
+
+#lbox,
+#rbox,
+#cbox {
+    width: 40vw;
+    padding: 20px;
+    border: none;
+    box-shadow: 4px 1px 40px 7px;
+    justify-self: center;
+    align-self: center;
+}
+
+
+.dec {
+    text-align: center;
+    font: bold;
+}
+
+.row {
+    margin: 0px;
+}
+
+#brand {
+    justify-self: center;
+    align-self: center;
+}
+
+#brangimg {
+    width: 15vw;
+}
+
+#brandname {
+    width: 15vw;
+    font-size: 7vw;
+    color: #5e6469;
+    margin: 0px auto;
+}
+
+#main {
+    margin-top: 25vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.input-field>input {
+    text-align: left;
+    color: white;
+
+}
+
+.input-field>label {
+    color: white;
+}
+
+.allbtns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bnt {
+    margin: 5px 5px;
+    background-color: darkblue;
+}
+
+/* *************************************************************/
+
+
+/* *************************************************************/
+
+#select {
+    display: flex;
+    flex-flow: row;
+}
+
+#select>select {
+    margin: 5px;
+}
+
+#alertforgetpass,
+#alertfillupform {
+    text-align: center;
+    font-weight: bold;
+    color: rgb(116, 17, 17);
+    display: none;
+    text-shadow: 4px 4px 6px white,
+        0px 0px 6px white,
+        -4px -4px 6px white;
+}
+
+@media only screen and (max-width: 800px) {
+
+    .input-field>label,
+    .input-field {
+        font-size: 1.5vw;
+    }
+
+    #main {
+        margin-top: 5vh;
+        grid-template-columns: 1fr;
+    }
+
+    #lbox,
+    #rbox,
+    #cbox {
+        width: 50vw;
+    }
+
+    #brand {
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- additionals -->
+    <script src="https://use.fontawesome.com/b4f1ce8a81.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- additionals -->
+    <link rel="stylesheet" href="styling/form.css">
+    <link rel="icon" href="resources/ClassMatelogo.png" type="image/icon type">
+    <title>ClassMate</title>
+    <script>
+        var a = localStorage.getItem("ccmcreatedbypantho");
+        var b = localStorage.getItem("rollcreatedbypantho");
+
+        if (a != null || b != null) {
+            location.replace("main");
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <main id="main">
+
+
+        <div id="brand">
+            <img id="brangimg" src="resources/ClassMatelogo.png" alt="logo">
+            <p id="brandname">ClassMate</p>
+        </div>
+
+
+        <div id="lbox">
+            <div class="row">
+                <p id="notsp" style="background:gray;text-align:center;color:white;"></p>
+                <h5 class="dec">By default your roll number is your password</h5>
+                <h6 class="dec">Get your class code from your class representative</h6>
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="ccm" type="text" class="validate">
+                            <label for="ccm">Class Code *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="rollId" type="text" class="validate">
+                            <label for="rollId">Roll/ID *</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" autocomplete="">
+                            <label for="password">Password *</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <p id="alertforgetpass">contact to your CR</p>
+
+            <div class="allbtns">
+                <img src="resources/Spinner.gif" alt="Wait" width="60vw">
+                <a id="loginbtn" class="waves-effect waves-light btn-small bnt">log in</a>
+
+                <a id="forpassbtn" class="waves-effect waves-light btn-small bnt">Forget Password</a>
+
+                <a id="caccbtn" class="waves-effect waves-light btn-small bnt">Create Account</a>
+
+                <a id="cclassbtn" class="waves-effect waves-light btn-small bnt">create class</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+
+
+
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+
+    <script>
+        $(".allbtns>img").hide();
+
+
+        /*
+                        
+                                    database connection
+                        
+                        
+                        */
+
+       // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyC8mJtYNAzcYWV2chASQwQvKq9nnMc0hr4",
+            authDomain: "myclassmate-7f0ba.firebaseapp.com",
+            databaseURL: "https://myclassmate-7f0ba-default-rtdb.firebaseio.com",
+            projectId: "myclassmate-7f0ba",
+            storageBucket: "myclassmate-7f0ba.appspot.com",
+            messagingSenderId: "784800826035",
+            appId: "1:784800826035:web:49852f1e8f2e8133e326c6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        var db = firebase.database();
+        /*
+        
+                    database connection
+        
+        
+        */
+
+
+        $("#loginbtn").click(function (e) {
+            e.preventDefault();
+
+            var ccm = $("#ccm")[0].value;
+            var roll = $("#rollId")[0].value;
+            var password = $("#password")[0].value;
+
+            
+            try {
+                if (ccm == "" || roll == "" || password == "") {
+                    throw "Fillup the form";
+                }
+                else {
+                    db.ref().on("value", function (e) {
+                        var j = e.val()[ccm];
+                        try{
+                            if (j == undefined) {
+                                throw "Invalid Class Code";
+                            }
+                            else {
+                                db.ref(ccm + "/cd/").on("value", function (f) {
+
+                                    var s1 = f.val().fr;
+                                    s1 = parseInt(s1);
+
+                                    var s2 = f.val().lr;
+                                    s2 = parseInt(s2);
+
+                                    roll = parseInt(roll);
+
+                                    try{
+                                        if (roll < s1 || roll > s2) {
+                                            throw "Invalid Roll";
+                                        }
+                                        else {
+                                            db.ref(ccm + "/" + roll).on("value", function (g) {
+
+                                                try{
+                                                    if (g.val().name == null && g.val().ht == null) {
+                                                        throw "First Creat Your account";
+                                                    }
+                                                    else if (g.val().password != password) {
+                                                        throw "Invalid Password";
+                                                    }
+                                                    else {
+                                                        //storing on local storage 
+                                                        localStorage.setItem("ccmcreatedbypantho", ccm);
+                                                        localStorage.setItem("rollcreatedbypantho", roll);
+
+                                                        $(".allbtns>img").show();
+                                                        setTimeout(function () {
+                                                            location.replace("main");
+                                                        }, 4000);
+                                                    }
+                                                } catch (err) {
+                                                    fillupFormValidation(4000, err);
+                                                }
+
+                                            });
+                                        }
+                                    } catch (err) {
+                                        fillupFormValidation(4000, err);
+                                    }
+
+
+                                });
+                            }
+                        } catch (err) {
+                            fillupFormValidation(4000, err);
+                        }
+                        
+                    });
+                }
+            } catch (err) {
+                fillupFormValidation( 4000, err);
+            }
+
+        });
+
+        $("#caccbtn").click(function () {
+            location.replace("registration.html");
+
+        });
+        $("#cclassbtn").click(function () {
+            location.replace("creatClass.html");
+        });
+        $("#forpassbtn").click(function () {
+            $("#alertforgetpass").show();
+            setTimeout(function () {
+                $("#alertforgetpass").hide();
+            }, 7000);
+        });
+
+
+        function fillupFormValidation(time, notice) {
+                $("#notsp").text(notice);
+
+                setTimeout(function () {
+                    $("#notsp").text("");
+                }, time);
+            }
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

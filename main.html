@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- additionals -->
+    <script src="https://use.fontawesome.com/b4f1ce8a81.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- additionals -->
+
+
+    <link rel="stylesheet" href="styling/main.css">
+    <link rel="icon" href="resources/ClassMatelogo.png" type="image/icon type">
+    <title>ClassMate</title>
+
+    <script>
+        var a = localStorage.getItem("ccmcreatedbypantho");
+        var b = localStorage.getItem("rollcreatedbypantho");
+
+        if (a == null || b == null) {
+            location.replace("index");
+        }
+    </script>
+</head>
+
+<body onload="">
+    <!-- preloader()
+    <div id="preloader">
+        <img src="resources/preLoader.gif" alt="">
+    </div> -->
+
+
+    <div id="nav">
+        <span id="searchbtn">
+            <img src="resources/friends_search.png" alt="" width="15vw">
+            <img src="resources/up-arrow.png" alt="" width="15vw">
+            Search
+        </span>
+        <span id="frndbtn">
+            <img src="resources/friends.png" alt="" width="15vw">
+            <img src="resources/up-arrow.png" alt="" width="15vw">
+            Friends
+        </span>
+        <span>ClassMate</span>
+        <span id="croption">CR Options</span>
+        <span id="logout">Log Out <img src="resources/logout.png" alt="" width="15vw"> </span>
+    </div>
+    <div id="dupnav" style="
+        height: 82px;
+        background:white;
+        width: 100vw;
+    ">
+
+    </div>
+
+    <main>
+        <div id="searchtable">
+            <input type="search" id="search" placeholder="search">
+            <div id="tablecont">
+                <table id="myTable">
+                    <tr>
+                        <th>Roll</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Blood Group</th>
+                        <th>Hometown</th>
+                        <th>Extra Links</th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="maintable1">
+            <div id="frndlst">
+
+            </div>
+
+        </div>
+
+        <div id="crbox">
+
+        </div>
+
+
+
+        <div id="blur">
+            <div id="qsbox">
+                <p id="qs">Are you sure you want to log out?</p>
+                <a id="yes" class="waves-effect waves-light btn-small">Yes</a>
+                <a id="no" class="waves-effect waves-light btn-small">No</a>
+                <img id="spinner" src="resources/Spinner.gif" alt="Wait" width="60vw">
+            </div>
+        </div>
+
+
+        <!--
+            
+            
+            update info box
+        
+        
+        -->
+    <div id="updateblur">
+        <div id="updateinfobox">
+            <div id="clsbtn">
+                <a id="closeupbtn" class="waves-effect waves-light btn-small">Close</a>
+            </div>
+            <p id="upnotice"></p>
+            <div class="row">
+                <h3 class="dec">Update your info</h3>
+                <form class="col s12">
+    
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="uname" type="text" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="uphone" type="text" placeholder="Phone Number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="uemail" type="email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="uht" type="text" placeholder="Hometown/Address">
+                        </div>
+                    </div>
+                    <div id="select">
+                        <select class="ui dropdown" id="ubg">
+                            <option value="">Blood Group *</option>
+                            <option value="Dontknow">Dont know</option>
+                            <option value="a positive(a+)">A+</option>
+                            <option value="a negative(a-)">A-</option>
+                            <option value="b positive(b+)">B+</option>
+                            <option value="b negative(b-)">B-</option>
+                            <option value="ab positive(ab+)">AB+</option>
+                            <option value="ab negative(ab-)">AB-</option>
+                            <option value="o positive(o+)">O+</option>
+                            <option value="o negative(o-)">O-</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="uext" class="fas fa-external-link-alt" type="text" placeholder="Facebook Link">
+                        </div>
+                    </div>
+                </form>
+            </div>
+    
+    
+    
+    
+    
+            <div class="allbtns">
+                <img id="upspinner" src="resources/Spinner.gif" alt="Wait" width="60vw">
+                <a id="upaccinfo" class="waves-effect waves-light btn-small bnt cacc2">Update Account Info</a>
+            </div>
+    
+            <form class="col s12">
+                <div id="passsec">
+                    <p id="uppasswordntc"></p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="crntpass" type="text" placeholder="Current Password">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="newpass" type="text" placeholder="New Password">
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="rnewpass" type="text" placeholder="Re-type New Password">
+                        </div>
+                    </div>
+    
+                    <div class="allbtns">
+                        <img id="uppassspinner" src="resources/Spinner.gif" alt="Wait" width="60vw">
+    
+                        <a id="chngpass" class="waves-effect waves-light btn-small bnt cacc2">Change Password</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+        <div id="ntcwrap">
+            <div id="ntcmob">
+                <div id="ntcmainmob">
+                    <p id="cut">X</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="routine-notice">
+            <div id="rtnbox">
+                <table id="tbl">
+        
+                </table>
+        
+            </div>
+            <a id="allnotice" class="waves-effect waves-light btn-small bnt">Notice</a>
+            <div id="notice">
+                <div id="ntcmain">
+        
+                </div>
+        
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <div id="rbar">
+            <div id="prfl">
+                <table cellspacing="6">
+                    <tr>
+                        <td rowspan="5">
+                            <img id="pdp" src="" alt="">
+                        </td>
+                        <td id="pphone"></td>
+                    </tr>
+                    <tr>
+                        <td id="pemail"></td>
+                    </tr>
+                    <tr>
+                        <td id="pht"></td>
+                    </tr>
+                    <tr>
+                        <td id="pbg"></td>
+                    </tr>
+                    <tr>
+                        <td id="pgen"></td>
+                    </tr>
+                    <tr>
+                        <td id="proll"></td>
+                        <td id="pext"></td>
+                    </tr>
+                    <tr>
+                        <td id="pname"></td>
+                        <td id="updatebox">
+                            <a id="pupdate" class="waves-effect waves-light btn-small">Update Your Info</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+
+            <div style="background-color:lightcoral;" id="classlinks">
+                <div id="ltbs" class="ui vertical menu">
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </main>
+    <footer>created by pantho</footer>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-database.js"></script>
+
+    <script>
+        var ccm = localStorage.getItem("ccmcreatedbypantho");
+        var roll = localStorage.getItem("rollcreatedbypantho");
+
+        if(!navigator.onLine){
+            document.querySelector("body").innerHTML="";
+            document.write("You are offline!");
+        }
+
+       /*
+                         
+                                     database connection
+                         
+                         
+                         */
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+       // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyC8mJtYNAzcYWV2chASQwQvKq9nnMc0hr4",
+            authDomain: "myclassmate-7f0ba.firebaseapp.com",
+            databaseURL: "https://myclassmate-7f0ba-default-rtdb.firebaseio.com",
+            projectId: "myclassmate-7f0ba",
+            storageBucket: "myclassmate-7f0ba.appspot.com",
+            messagingSenderId: "784800826035",
+            appId: "1:784800826035:web:49852f1e8f2e8133e326c6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+      
+        /*
+
+                    database connection
+
+
+        */
+
+
+
+        /**************
+         *      preloader function
+         * 
+         * *****************/
+        function preloader() {
+            setTimeout(function () {
+                $("#preloader").hide();
+            }, 4000);
+
+        }
+
+
+
+
+
+        /*********************************************************************
+    * *******************************************************************
+    * ************        responsive fact ************************************
+    *********************************************************************
+    ********************************************************************/
+
+
+        var x = window.matchMedia("(max-width: 800px)")
+        if (x.matches) {
+            // If media query matches
+
+        }
+        else {
+
+        }
+
+
+        /*********************************************************************
+    * *******************************************************************
+    * ************        search bar ************************************
+    *********************************************************************
+    ********************************************************************/
+        $('#searchbtn>img[src="resources/up-arrow.png"]').hide();
+        $("#searchtable").hide();
+        $("#searchbtn").click(function () {
+            $("#searchtable").toggle("slow");
+            $('#searchbtn>img[src="resources/up-arrow.png"]').toggle("slow");
+            $('#searchbtn>img[src="resources/friends_search.png"]').toggle("slow");
+        });
+
+
+        $(document).ready(function () {
+            $("#search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+        });
+
+
+
+
+
+        /*********************************************************************
+    * *******************************************************************
+    * ************        logout bar ************************************
+    *********************************************************************
+    ********************************************************************/
+        $("#spinner").hide();
+        $("#blur").hide();
+        $("#logout").click(function () {
+            $("#blur").fadeToggle(500);
+        });
+        $("#yes").click(function () {
+            $("#spinner").show();
+            localStorage.removeItem("ccmcreatedbypantho");
+            localStorage.removeItem("rollcreatedbypantho");
+            setTimeout(function () {
+                location.replace("index");
+            }, 3000);
+        });
+        $("#no").click(function () {
+            $("#blur").fadeOut(500);
+        });
+
+
+
+
+        /*********************************************************************
+             * *******************************************************************
+             * ************ prfl arrange ************************************
+             *********************************************************************
+             ********************************************************************/
+             $("#upspinner").hide();
+                $("#uppassspinner").hide();
+                $("#updateblur").hide();
+
+                $("#pupdate").click(() => {
+                    $("#updateblur").fadeIn("slow");
+                });
+
+                $("#closeupbtn").click(() => {
+                    $("#updateblur").fadeOut("slow");
+                });
+
+                var db = {};
+                firebase.database().ref().on("value", (e) => {
+                    db = e.val();
+
+                    personalInfo(db, ccm, roll);
+
+                    $("#upaccinfo").click(function () {
+                        personalUpdate(ccm, roll);
+                    });
+
+                    $("#chngpass").click(function () {
+                        passwordChange(ccm, roll);
+                    });
+
+                });
+            
+
+
+
+    function personalInfo(object, ccm, roll) {
+        var all = object[ccm][roll];
+
+        if (all.gr.toLowerCase() == "male") {
+            var fimgsrc = "../resources/mdp.jpg";
+        }
+        else if (all.gr.toLowerCase() == "female") {
+            var fimgsrc = "../resources/fdp.jpg";
+        }
+
+        $('#pdp').attr('src', fimgsrc);
+        $('#pname').text(all.name);
+        $('#proll').text(all.roll);
+        $('#pphone').text(all.phone);
+        $('#pemail').text(all.email);
+        $('#pemail').attr('href', 'mailto:' + all.email);
+        $('#pht').text(all.ht);
+        $('#pgen').text(all.gr);
+        $('#pbg').text(all.bg);
+        $('#pext').text(all.ext);
+
+
+        $("#uname")[0].value = all.name;
+        $("#uphone")[0].value = all.phone;
+        $("#uemail")[0].value = all.email;
+        $("#uht")[0].value = all.ht;
+        $("#ubg")[0].value = all.bg;
+        $("#uext")[0].value = all.ext;
+    }
+
+    function personalUpdate(ccm, roll) {
+        var luname = $("#uname")[0].value;
+        var luphone = $("#uphone")[0].value;
+        var luemail = $("#uemail")[0].value;
+        var luht = $("#uht")[0].value;
+        var lubg = $("#ubg")[0].value;
+        var luext = $("#uext")[0].value;
+
+
+
+        if (!ValidateEmail(luemail)) {
+            fillupFormValidation($("#updateinfobox"), 7000, "Invalid email");
+
+        }
+        else {
+            firebase.database().ref(ccm + "/" + roll).update({
+                name: luname,
+                phone: luphone,
+                email: luemail,
+                ht: luht,
+                bg: lubg,
+                ext: luext
+            });
+
+            $("#upspinner").show();
+            setTimeout(() => {
+                $("#upspinner").hide();
+                fillupFormValidation($("#upnotice"), 3000, "Info Updated");
+            }, 1500);
+
+        }
+
+
+    }
+
+    function passwordChange(ccm, roll) {
+        var crntpass = $("#crntpass")[0].value;
+        var newpass = $("#newpass")[0].value;
+        var rnewpass = $("#rnewpass")[0].value;
+
+        var dbpass = db[ccm][roll].password;
+
+        newpass = newpass.toString();
+        rnewpass = rnewpass, toString();
+        var len = newpass.length;
+
+
+        if (crntpass != dbpass) {
+            fillupFormValidation($("#uppasswordntc"), 3000, "Current Password Doesn't Match");
+        }
+        else if (newpass != rnewpass) {
+            fillupFormValidation($("#uppasswordntc"), 3000, "Retype new password");
+        }
+        else if (len < 6) {
+            fillupFormValidation($("#uppasswordntc"), 3000, "Password must have minimum 6 digits");
+        }
+        else {
+            firebase.database().ref(ccm + "/" + roll).update({
+                password: newpass
+            });
+
+            $("#uppassspinner").show();
+            setTimeout(() => {
+                $("#uppassspinner").hide();
+                fillupFormValidation($("#uppasswordntc"), 3000, "Password Changed");
+            }, 1500);
+        }
+    }
+
+
+    function ValidateEmail(mail) {
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail)) {
+            return (true)
+        }
+        return (false)
+    }
+    function fillupFormValidation(parent, time, notice) {
+        parent.text(notice);
+
+        setTimeout(function () {
+            parent.text(" ");
+        }, time);
+    }
+
+
+
+        /*********************************************************************
+        *************************************************************
+        ****         links arrange
+        ***
+        * ************************************
+        *********************************************************************
+        ********************************************************************/
+
+        firebase.database().ref(ccm + "/cd/").on("value", function (e) {
+            var dblink = e.val().links;
+            dblink.shift();
+
+            var len = dblink.length;
+
+            for (var i = 0; i < len; i++) {
+                var h = dblink[i].head;
+                var l = dblink[i].link;
+
+                if(h!="unknown2433"){
+
+                    $("#ltbs").append('<a href="' + l + '" target="_blank" class="item lnkitems">Visit ' + h + '</a>');
+
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+        /*********************************************************************
+         * *******************************************************************
+         * ************ frnd list arrange ************************************ 
+         *************************************************
+         *
+         *                  routine arranging
+         *
+         ******************** 
+         ********************************************************************/
+        $('#frndbtn>img[src="resources/up-arrow.png"]').hide();
+        $("#maintable1").hide();
+        $("#frndbtn").click(function () {
+
+            $("#maintable1").toggle("slow");
+            $('#frndbtn>img[src="resources/up-arrow.png"]').toggle("slow");
+            $('#frndbtn>img[src="resources/friends.png"]').toggle("slow");
+
+
+        });
+
+
+
+        // database starts here  for frndlist , search , routine
+
+
+        firebase.database().ref(ccm + '/cd').on('value', function (e) {
+            const ins = e.val().ins;
+            const sins = e.val().sins;
+            const dep = e.val().dep;
+            const year = e.val().year;
+            const ts = e.val().ts;
+            const fr = e.val().fr;
+            const lr = e.val().lr;
+            const ncr = e.val().ncr;
+            const crr = e.val().crr;
+
+
+
+            for (var i = fr; i <= lr; i++) {
+
+                firebase.database().ref(ccm + '/' + i).on('value', function (f) {
+
+                    var froll = f.val().roll;
+                    var fname = f.val().name;
+                    var fphone = f.val().phone;
+                    var femail = f.val().email;
+                    var fht = f.val().ht;
+                    var fgen = f.val().gr;
+                    var fbg = f.val().bg;
+                    var fext = f.val().ext;
+                    if (fext == null) {
+                        fext = '';
+                    }
+
+                    if (fgen == "male") {
+                        var fimgsrc = "resources/mdp.jpg";
+                    }
+                    else {
+                        var fimgsrc = "resources/fdp.jpg";
+                    }
+
+
+                    if (froll != roll && fname != undefined && fphone != undefined && femail != undefined && fht != undefined && fgen != undefined && fbg != undefined) {
+
+
+
+
+                        $('#frndlst').append('<div class="frnd"> <img src="' + fimgsrc + '" alt="dp"> <div class="frndinfo"> <span class="r">' + froll + '</span><span class="n">' + fname + '</span> <span class="p">' + fphone + '</span> <a href="mailto:' + femail + '" class="e">' + femail + '</a> <span class="g"> ' + fgen + ' </span> <span class="b"> ' + fbg + ' </span> <span class="h"> ' + fht + ' </span> <a href="' + fext + '" class="l" target="_blank"> ' + fext + ' </a> </div> </div>');
+
+
+                        $('#myTable').append('<tr style="background:rgba(172, 175, 170, 0.474);"> <td>' + froll + '</td> <td>' + fname + '</td> <td>' + fphone + '</td> <td> <a href="mailto:' + femail + '" target="_blank"> ' + femail + '</a> </td> <td>' + fbg + '</td> <td>' + fht + '</td> <td> <a href="' + fext + '"target="_blank"> ' + fext + ' </a></td> </tr>');
+
+
+                    }
+
+
+                });
+            }
+
+
+
+            /***************************
+             * ********************************
+             * *******************************************
+             *              routine              ***************
+             * *******************************************
+             * ********************************
+             * ***********************/
+
+
+
+
+            var routine = e.val().routine;
+            var dur = routine[1];
+            dur.shift();
+            var sat = routine[2];
+            sat.shift();
+            var sun = routine[3];
+            sun.shift();
+            var mon = routine[4];
+            mon.shift();
+            var tue = routine[5];
+            tue.shift();
+            var wed = routine[6];
+            wed.shift();
+            var thu = routine[7];
+            thu.shift();
+            var fri = routine[8];
+            fri.shift();
+
+
+
+            /***
+             * 
+             * got 8 arrays from database
+             * 
+             * ***/
+
+
+
+            var period = dur.length;
+            var ad = [];
+            fixAd(sat, 0);
+            fixAd(sun, 1);
+            fixAd(mon, 2);
+            fixAd(tue, 3);
+            fixAd(wed, 4);
+            fixAd(thu, 5);
+            fixAd(fri, 6);
+
+            function fixAd(din, index) {
+                for (var i = 0; i < period; i++) {
+                    if (din[i] == "") {
+                        continue;
+                    }
+                    else {
+                        ad[index] = 1;
+                        break;
+                    }
+                }
+            }
+
+            var week = ['SAT', 'SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI'];
+
+
+
+            for (var i = (-3); i < 7; i++) {
+                if (i == (-3)) {
+                    $("#tbl").append('<tr id="tr1"><th rowspan="3">Period</th></tr>');
+                    for (var j = 1; j <= period; j++) {
+                        $("#tr1").append('<td>' + j + '</td>')
+                    }
+                }
+                if (i == (-2)) {
+                    $("#tbl").append('<tr id="tr2"><td colspan="' + period + '">Time</td></tr>');
+                }
+                if (i == (-1)) {
+                    $("#tbl").append('<tr id="tr3"></tr>');
+                    for (var j = 1; j <= period; j++) {
+                        $("#tr3").append('<td>' + dur[j - 1] + '</td>')
+                    }
+                }
+                if (ad[i] == 1) {
+                    $("#tbl").append('<tr id="day' + i + '"><th>' + week[i] + '</th></tr>');
+                    if (i == 0) {
+                        creatClassCell(sat);
+                    }
+                    else if (i == 1) {
+                        creatClassCell(sun);
+                    }
+                    else if (i == 2) {
+                        creatClassCell(mon);
+                    }
+                    else if (i == 3) {
+                        creatClassCell(tue)
+                    }
+                    else if (i == 4) {
+                        creatClassCell(wed);
+                    }
+                    else if (i == 5) {
+                        creatClassCell(thu);
+                    }
+                    else if (i == 6) {
+                        creatClassCell(fri);
+                    }
+
+                }
+
+            }
+
+            function creatClassCell(din) {
+                for (var j = 1; j <= period; j++) {
+                    if (din[j - 1] == "") {
+                        $("#day" + i).append('<td></td>');
+                    }
+                    else {
+                        var txt = din[j - 1].split("\n");
+                        $("#day" + i).append('<td><b>' + txt[0] + '</b><br><code>' + txt[1] + '</code></td>');
+                    }
+                }
+            }
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        /***************************
+         * ********************************
+         * *******************************************
+         *              notice              ***************
+         * *******************************************
+         * ********************************
+         * ***********************/
+       $("#ntcwrap").hide();
+        $("#allnotice").click(() => {
+            $("#ntcwrap").fadeIn("slow");
+        });
+        $("#cut").click(() => {
+            $("#ntcwrap").fadeOut("slow");
+        });
+
+
+        firebase.database().ref(ccm + "/cd/routine/extra").on("value", (e) => {
+            var nc = e.val();
+            var d = new Date();
+            var y = d.getFullYear();
+            var m = d.getMonth() + 1;
+            var dy = d.getDate();
+
+
+            var tdy = dy;
+            for (var i = tdy, j = m; j >= 1; i--) {
+                var ty = y.toString();
+                ty = ty.substring(2);
+
+                var tm = j.toString();
+                if (tm.length == 1) {
+                    tm = "0" + tm;
+                }
+                var dd = i.toString();
+                if (dd.length == 1) {
+                    dd = "0" + dd;
+                }
+
+
+                var notice = nc[dd + "+" + tm + "+" + ty];
+                if (notice == undefined) {
+                    continue;
+                }
+                else {
+                    $("#ntcmain").append(`<p class="ntc">${dd}/${tm}/${ty} : ${notice}</p>`);
+                    $("#ntcmainmob").append(`<p class="ntc">${dd}/${tm}/${ty} : ${notice}</p>`);
+                }
+
+
+                if (i == 1) {
+                    if (leapYear(y) && m == 3) {
+                        i = 30;
+                    }
+                    else if (!leapYear(y) && m == 3) {
+                        i = 29;
+                    }
+                    else if (m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) {
+                        i = 31;
+                    }
+                    else if (m == 1 || m == 2 || m == 4 || m == 6 || m == 9 || m == 11) {
+                        i = 32;
+                    }
+                    if (m == 1) {
+                        j = 12;
+                        y--;
+                    }
+                    else {
+                        j--;
+                    }
+                }
+                if (i == tdy + 1) {
+                    break;
+                }
+            }
+
+
+
+
+        });
+
+        function leapYear(year) {
+            if ((0 == year % 4) && (0 != year % 100) || (0 == year % 400)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
